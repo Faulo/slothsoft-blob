@@ -1,0 +1,19 @@
+{
+	"autoload" : {
+		"files" : [
+			"src/autoload.php"
+		],
+		"psr-0" : {
+			"Slothsoft\\Blob\\" : "src"
+		}
+	},
+	"name" : "slothsoft/sloftsoft-blob",
+	"type" : "library",
+	"require" : {
+		"php" : ">=7.0",
+		"slothsoft/w3c" : "dev-master"
+	},
+	"require-dev" : {
+		"phpunit/phpunit" : ">=6.5"
+	}
+}
