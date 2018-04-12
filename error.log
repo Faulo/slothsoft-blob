@@ -1,0 +1,9 @@
+[12-Apr-2018 13:41:15 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined method Slothsoft\Blob\StreamWrapper\StreamWrapperRegistrar::setFactory() in C:\_PHP\Workspace\slothsoft-blob\src\Slothsoft\Blob\StreamWrapper\StreamWrapperRegistrar.php:18
+Stack trace:
+#0 C:\_PHP\Workspace\slothsoft-blob\src\autoload.php(7): Slothsoft\Blob\StreamWrapper\StreamWrapperRegistrar::registerStreamWrapper('blob', Object(Slothsoft\Blob\BlobStreamWrapperFactory))
+#1 C:\_PHP\Workspace\slothsoft-blob\vendor\composer\autoload_real.php(66): require('C:\\_PHP\\Workspa...')
+#2 C:\_PHP\Workspace\slothsoft-blob\vendor\composer\autoload_real.php(56): composerRequire27c3a83b1bc9b8b8b64d30bc50d72938('da5b5595cb7e32a...', 'C:\\_PHP\\Workspa...')
+#3 C:\_PHP\Workspace\slothsoft-blob\vendor\autoload.php(7): ComposerAutoloaderInit27c3a83b1bc9b8b8b64d30bc50d72938::getLoader()
+#4 C:\_PHP\Workspace\slothsoft-blob\vendor\phpunit\phpunit\phpunit(51): require('C:\\_PHP\\Workspa...')
+#5 {main}
+  thrown in C:\_PHP\Workspace\slothsoft-blob\src\Slothsoft\Blob\StreamWrapper\StreamWrapperRegistrar.php on line 18
