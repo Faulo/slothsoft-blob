@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>sloftsoft-blob</name>
+	<name>slothsoft-blob</name>
 	<comment></comment>
 	<projects>
+		<project>slothsoft-w3c</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -30,4 +31,11 @@
 		<nature>org.eclipse.php.core.PHPNature</nature>
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>vendor/slothsoft</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>
