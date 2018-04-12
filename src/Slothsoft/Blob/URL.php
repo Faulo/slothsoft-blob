@@ -30,6 +30,13 @@ class URL implements UrlInterface
         return self::$blobStore[$url] ?? null;
     }
     
+    public static function createTemporaryObject() {
+        return fopen('php://temp', 'w+');
+    }
+    public static function createTemporaryURL(): string {
+        return self::createObjectURL(self::createTemporaryObject());
+    }
+    
     /**
      * @see https://w3c.github.io/FileAPI/#url-model
      */

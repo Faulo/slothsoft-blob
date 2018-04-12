@@ -109,16 +109,9 @@ class StreamWrapperTest extends TestCase
         $doc = new DOMDocument();
         $doc->appendChild($doc->createElement('xml'));
         
-        $content = $doc->saveXML();
         $doc->save($url);
         
-        fseek($resource, 0);
-        $this->assertEquals($content, fread($resource, strlen($content)));
-        fseek($resource, 0);
-        $this->assertEquals($content, fread($resource, strlen($content)));
-        
-        $this->assertEquals($content, file_get_contents($url));
-        $this->assertEquals($content, file_get_contents($url));
+        $this->assertEquals($doc->saveXML(), file_get_contents($url));
     }
     
     public function testTransformDocument() {

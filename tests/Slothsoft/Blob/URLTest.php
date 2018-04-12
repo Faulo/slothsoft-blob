@@ -30,5 +30,31 @@ class URLTest extends TestCase
         
         $this->assertEquals(null, URL::resolveObjectURL($url));
     }
+    
+    public function testCreateTemporaryObject() {
+        $content = 'hello world';
+        
+        $resource = URL::createTemporaryObject();
+        
+        $this->assertTrue(is_resource($resource));
+        $this->assertEquals(strlen($content), fwrite($resource, $content));
+        
+        fseek($resource, 0);
+        $this->assertEquals($content, fread($resource, strlen($content)));
+    }
+    
+    public function testCreateTemporaryUrl() {
+        $content = 'hello world';
+        
+        $url = URL::createTemporaryURL();
+        
+        $this->assertEquals(strlen($content), file_put_contents($url, $content));
+        
+        $this->assertEquals($content, file_get_contents($url));
+        
+        URL::revokeObjectURL($url);
+        
+        $this->assertEquals(null, URL::resolveObjectURL($url));
+    }
 }
 
