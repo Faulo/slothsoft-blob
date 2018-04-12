@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 namespace Slothsoft\Blob;
 
 use PHPUnit\Framework\TestCase;

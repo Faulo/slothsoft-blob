@@ -1,9 +1,10 @@
 <?php
+declare(strict_types = 1);
 namespace Slothsoft\Blob;
 
-use Slothsoft\Blob\StreamWrapper\StreamWrapperFactoryInterface;
-use Slothsoft\Blob\StreamWrapper\StreamWrapperInterface;
-use Slothsoft\Blob\StreamWrapper\ResourceStreamWrapper;
+use Slothsoft\Core\StreamWrapper\StreamWrapperFactoryInterface;
+use Slothsoft\Core\StreamWrapper\StreamWrapperInterface;
+use Slothsoft\Core\StreamWrapper\ResourceStreamWrapper;
 
 class BlobStreamWrapperFactory implements StreamWrapperFactoryInterface
 {

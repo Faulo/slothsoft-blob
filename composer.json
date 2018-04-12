@@ -1,5 +1,5 @@
 {
-    "name" : "slothsoft/blob",
+    "name": "slothsoft/blob",
     "description": "Blob implementation of https://www.w3.org/TR/FileAPI/",
     "license": "WTFPL",
     "authors": [
@@ -11,18 +11,19 @@
     "type": "library",
     "require": {
         "php": ">=7.0",
-		"slothsoft/w3c" : "dev-master"
+        "slothsoft/core": "dev-master",
+        "slothsoft/w3c": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": ">=6.5"
     },
     "autoload": {
-		"files" : [
-			"src/autoload.php"
-		],
         "psr-0": {
-            "Slothsoft\\Blob\\" : "src"
-        }
+            "Slothsoft\\Blob\\": "src/"
+        },
+        "files": [
+            "src/autoload.php"
+        ]
     },
     "keywords": [
         "farah-abstract",
