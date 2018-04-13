@@ -23,20 +23,7 @@ class BlobStreamWrapperFactory implements StreamWrapperFactoryInterface
      */
     public function createStreamWrapper(string $url, string $mode, int $options)
     {
-        if ($resource = URL::resolveObjectURL($url)) {
-            switch ($mode[0]) {
-                case 'r':
-                case 'w':
-                case 'x':
-                case 'c':
-                    fseek($resource, 0, SEEK_SET);
-                    break;
-                case 'a':
-                    fseek($resource, 0, SEEK_END);
-                    break;
-                default:
-                    return false;
-            }
+        if ($resource = BlobUrl::resolveObjectURL($url)) {
             return new ResourceStreamWrapper($resource);
         } else {
             return null;

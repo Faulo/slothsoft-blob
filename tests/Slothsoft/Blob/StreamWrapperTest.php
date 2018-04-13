@@ -15,7 +15,7 @@ class StreamWrapperTest extends TestCase
         $resource = fopen('php://temp', 'w+');
         fwrite($resource, $content);
         
-        $url = URL::createObjectURL($resource);
+        $url = BlobUrl::createObjectURL($resource);
         $this->assertTrue(file_exists($url));
         
         fseek($resource, 0);
@@ -32,7 +32,7 @@ class StreamWrapperTest extends TestCase
         
         $resource = fopen('php://temp', 'w+');
         
-        $url = URL::createObjectURL($resource);
+        $url = BlobUrl::createObjectURL($resource);
         $this->assertTrue(file_exists($url));
         
         file_put_contents($url, $content);
@@ -52,7 +52,7 @@ class StreamWrapperTest extends TestCase
         $resource = fopen('php://temp', 'w+');
         fwrite($resource, 'hello');
         
-        $url = URL::createObjectURL($resource);
+        $url = BlobUrl::createObjectURL($resource);
         $this->assertTrue(file_exists($url));
         
         file_put_contents($url, ' world', FILE_APPEND);
@@ -73,14 +73,14 @@ class StreamWrapperTest extends TestCase
         $resource = fopen('php://temp', 'w+');
         fwrite($resource, $content);
         
-        $url = URL::createObjectURL($resource);
+        $url = BlobUrl::createObjectURL($resource);
         $this->assertTrue(file_exists($url));
         
         $this->assertEquals($content, file_get_contents($url));
         
         $this->assertTrue(is_resource($resource));
         
-        URL::revokeObjectURL($url);
+        BlobUrl::revokeObjectURL($url);
         clearstatcache();
         
         $this->assertFalse(is_resource($resource));
@@ -95,7 +95,7 @@ class StreamWrapperTest extends TestCase
         
         $resource = fopen('php://temp', 'w+');
         fwrite($resource, $content);
-        $url = URL::createObjectURL($resource);
+        $url = BlobUrl::createObjectURL($resource);
         
         $doc = new DOMDocument();
         $doc->load($url);
@@ -105,7 +105,7 @@ class StreamWrapperTest extends TestCase
     
     public function testSaveDocument() {
         $resource = fopen('php://temp', 'w+');
-        $url = URL::createObjectURL($resource);
+        $url = BlobUrl::createObjectURL($resource);
         
         $doc = new DOMDocument();
         $doc->appendChild($doc->createElement('xml'));
@@ -123,7 +123,7 @@ class StreamWrapperTest extends TestCase
 EOT;
         $dataResource = fopen('php://temp', 'w+');
         fwrite($dataResource, $dataXml);
-        $dataUrl = URL::createObjectURL($dataResource);
+        $dataUrl = BlobUrl::createObjectURL($dataResource);
         $dataDoc = new DOMDocument();
         $dataDoc->load($dataUrl);
         
@@ -138,12 +138,12 @@ EOT;
 EOT;
         $templateResource = fopen('php://temp', 'w+');
         fwrite($templateResource, $templateXml);
-        $templateUrl = URL::createObjectURL($templateResource);
+        $templateUrl = BlobUrl::createObjectURL($templateResource);
         $templateDoc = new DOMDocument();
         $templateDoc->load($templateUrl);
         
         $resultResource = fopen('php://temp', 'w+');
-        $resultUrl = URL::createObjectURL($resultResource);
+        $resultUrl = BlobUrl::createObjectURL($resultResource);
         
         $xslt = new XSLTProcessor();
         $xslt->importStylesheet($templateDoc);

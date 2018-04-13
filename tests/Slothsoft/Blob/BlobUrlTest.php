@@ -4,12 +4,12 @@ namespace Slothsoft\Blob;
 
 use PHPUnit\Framework\TestCase;
 
-class URLTest extends TestCase
+class BlobUrlTest extends TestCase
 {
     public function testCreateObjectUrl() {
         $resource = fopen('php://temp', 'w+');
         
-        $url = URL::createObjectURL($resource);
+        $url = BlobUrl::createObjectURL($resource);
         
         $this->assertRegExp('~^blob://\d+$~', $url);
     }
@@ -17,25 +17,25 @@ class URLTest extends TestCase
     public function testResolveObjectUrl() {
         $resource = fopen('php://temp', 'w+');
         
-        $url = URL::createObjectURL($resource);
+        $url = BlobUrl::createObjectURL($resource);
         
-        $this->assertEquals($resource, URL::resolveObjectURL($url));
+        $this->assertEquals($resource, BlobUrl::resolveObjectURL($url));
     }
     
     public function testRevokeObjectUrl() {
         $resource = fopen('php://temp', 'w+');
         
-        $url = URL::createObjectURL($resource);
+        $url = BlobUrl::createObjectURL($resource);
         
-        URL::revokeObjectURL($url);
+        BlobUrl::revokeObjectURL($url);
         
-        $this->assertEquals(null, URL::resolveObjectURL($url));
+        $this->assertEquals(null, BlobUrl::resolveObjectURL($url));
     }
     
     public function testCreateTemporaryObject() {
         $content = 'hello world';
         
-        $resource = URL::createTemporaryObject();
+        $resource = BlobUrl::createTemporaryObject();
         
         $this->assertTrue(is_resource($resource));
         $this->assertEquals(strlen($content), fwrite($resource, $content));
@@ -47,15 +47,15 @@ class URLTest extends TestCase
     public function testCreateTemporaryUrl() {
         $content = 'hello world';
         
-        $url = URL::createTemporaryURL();
+        $url = BlobUrl::createTemporaryURL();
         
         $this->assertEquals(strlen($content), file_put_contents($url, $content));
         
         $this->assertEquals($content, file_get_contents($url));
         
-        URL::revokeObjectURL($url);
+        BlobUrl::revokeObjectURL($url);
         
-        $this->assertEquals(null, URL::resolveObjectURL($url));
+        $this->assertEquals(null, BlobUrl::resolveObjectURL($url));
     }
 }
 
