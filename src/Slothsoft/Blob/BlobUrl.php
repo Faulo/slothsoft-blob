@@ -3,6 +3,7 @@ declare(strict_types = 1);
 namespace Slothsoft\Blob;
 
 use w3c\FileAPI\URL;
+use Slothsoft\Core\StreamWrapper\StreamWrapperInterface;
 
 class BlobUrl implements URL
 {
@@ -31,7 +32,7 @@ class BlobUrl implements URL
     }
     
     public static function createTemporaryObject() {
-        return fopen('php://temp', 'w+');
+        return fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
     }
     public static function createTemporaryURL(): string {
         return self::createObjectURL(self::createTemporaryObject());

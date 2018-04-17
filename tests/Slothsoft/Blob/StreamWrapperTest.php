@@ -4,6 +4,7 @@ namespace Slothsoft\Blob;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Error\Warning;
+use Slothsoft\Core\StreamWrapper\StreamWrapperInterface;
 use DOMDocument;
 use XSLTProcessor;
 
@@ -12,7 +13,7 @@ class StreamWrapperTest extends TestCase
     public function testReadStream() {
         $content = 'hello world';
         
-        $resource = fopen('php://temp', 'w+');
+        $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
         fwrite($resource, $content);
         
         $url = BlobUrl::createObjectURL($resource);
@@ -30,7 +31,7 @@ class StreamWrapperTest extends TestCase
     public function testWriteStream() {
         $content = 'hello world';
         
-        $resource = fopen('php://temp', 'w+');
+        $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
         
         $url = BlobUrl::createObjectURL($resource);
         $this->assertTrue(file_exists($url));
@@ -49,7 +50,7 @@ class StreamWrapperTest extends TestCase
     public function testAppendStream() {
         $content = 'hello world';
         
-        $resource = fopen('php://temp', 'w+');
+        $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
         fwrite($resource, 'hello');
         
         $url = BlobUrl::createObjectURL($resource);
@@ -70,7 +71,7 @@ class StreamWrapperTest extends TestCase
     public function testCloseStream() {
         $content = 'hello world';
         
-        $resource = fopen('php://temp', 'w+');
+        $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
         fwrite($resource, $content);
         
         $url = BlobUrl::createObjectURL($resource);
@@ -93,7 +94,7 @@ class StreamWrapperTest extends TestCase
     public function testLoadDocument() {
         $content = '<xml/>';
         
-        $resource = fopen('php://temp', 'w+');
+        $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
         fwrite($resource, $content);
         $url = BlobUrl::createObjectURL($resource);
         
@@ -104,7 +105,7 @@ class StreamWrapperTest extends TestCase
     }
     
     public function testSaveDocument() {
-        $resource = fopen('php://temp', 'w+');
+        $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
         $url = BlobUrl::createObjectURL($resource);
         
         $doc = new DOMDocument();
@@ -121,7 +122,7 @@ class StreamWrapperTest extends TestCase
     hello world
 </xml>
 EOT;
-        $dataResource = fopen('php://temp', 'w+');
+        $dataResource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
         fwrite($dataResource, $dataXml);
         $dataUrl = BlobUrl::createObjectURL($dataResource);
         $dataDoc = new DOMDocument();
@@ -136,13 +137,13 @@ EOT;
     </xsl:template>
 </xsl:stylesheet>
 EOT;
-        $templateResource = fopen('php://temp', 'w+');
+        $templateResource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
         fwrite($templateResource, $templateXml);
         $templateUrl = BlobUrl::createObjectURL($templateResource);
         $templateDoc = new DOMDocument();
         $templateDoc->load($templateUrl);
         
-        $resultResource = fopen('php://temp', 'w+');
+        $resultResource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
         $resultUrl = BlobUrl::createObjectURL($resultResource);
         
         $xslt = new XSLTProcessor();

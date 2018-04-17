@@ -3,11 +3,12 @@ declare(strict_types = 1);
 namespace Slothsoft\Blob;
 
 use PHPUnit\Framework\TestCase;
+use Slothsoft\Core\StreamWrapper\StreamWrapperInterface;
 
 class BlobUrlTest extends TestCase
 {
     public function testCreateObjectUrl() {
-        $resource = fopen('php://temp', 'w+');
+        $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
         
         $url = BlobUrl::createObjectURL($resource);
         
@@ -15,7 +16,7 @@ class BlobUrlTest extends TestCase
     }
     
     public function testResolveObjectUrl() {
-        $resource = fopen('php://temp', 'w+');
+        $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
         
         $url = BlobUrl::createObjectURL($resource);
         
@@ -23,7 +24,7 @@ class BlobUrlTest extends TestCase
     }
     
     public function testRevokeObjectUrl() {
-        $resource = fopen('php://temp', 'w+');
+        $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
         
         $url = BlobUrl::createObjectURL($resource);
         

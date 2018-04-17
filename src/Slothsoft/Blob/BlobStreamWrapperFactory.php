@@ -11,7 +11,7 @@ class BlobStreamWrapperFactory implements StreamWrapperFactoryInterface
 
     public function statUrl(string $url, int $flags)
     {
-        if ($stream = self::createStreamWrapper($url, 'r', 0)) {
+        if ($stream = self::createStreamWrapper($url, StreamWrapperInterface::MODE_OPEN_READONLY, 0)) {
             return $stream->stream_stat();
         } else {
             return false;
