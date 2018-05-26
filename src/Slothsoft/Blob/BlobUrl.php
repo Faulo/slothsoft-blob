@@ -41,7 +41,7 @@ class BlobUrl implements URL
     /**
      * @see https://w3c.github.io/FileAPI/#url-model
      */
-    private static function buildObjectUrl(string $scheme, string $origin, string $uuid) {
+    private static function buildObjectUrl(string $scheme, string $origin, string $uuid) : string {
         return "$scheme:$origin/$uuid";
     }
 }
