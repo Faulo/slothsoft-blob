@@ -21,35 +21,35 @@
 <path fill="none" stroke="gray" d="M569.956,-24C569.956,-24 740.956,-24 740.956,-24 746.956,-24 752.956,-30 752.956,-36 752.956,-36 752.956,-138 752.956,-138 752.956,-144 746.956,-150 740.956,-150 740.956,-150 569.956,-150 569.956,-150 563.956,-150 557.956,-144 557.956,-138 557.956,-138 557.956,-36 557.956,-36 557.956,-30 563.956,-24 569.956,-24"/>
 <text text-anchor="middle" x="655.456" y="-137.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">Blob</text>
 </g>
-<!-- \\Slothsoft\\Blob\\BlobStreamWrapperFactory -->
-<g id="node1" class="node"><title>\\Slothsoft\\Blob\\BlobStreamWrapperFactory</title>
-<polygon fill="none" stroke="black" points="744.956,-122 565.956,-122 565.956,-86 744.956,-86 744.956,-122"/>
-<text text-anchor="middle" x="655.456" y="-101.2" font-family="Courier,monospace" font-size="11.00">BlobStreamWrapperFactory</text>
-</g>
-<!-- \\Slothsoft\\Core\\StreamWrapper\\StreamWrapperFactoryInterface -->
-<g id="node3" class="node"><title>\\Slothsoft\\Core\\StreamWrapper\\StreamWrapperFactoryInterface</title>
-<ellipse fill="none" stroke="black" cx="246.978" cy="-104" rx="246.956" ry="18"/>
-<text text-anchor="middle" x="246.978" y="-100.3" font-family="Times New Roman,serif" font-size="14.00" fill="gray">\Slothsoft\Core\StreamWrapper\StreamWrapperFactoryInterface</text>
-</g>
-<!-- \\Slothsoft\\Blob\\BlobStreamWrapperFactory&#45;&gt;\\Slothsoft\\Core\\StreamWrapper\\StreamWrapperFactoryInterface -->
-<g id="edge1" class="edge"><title>\\Slothsoft\\Blob\\BlobStreamWrapperFactory&#45;&gt;\\Slothsoft\\Core\\StreamWrapper\\StreamWrapperFactoryInterface</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M565.755,-104C546.815,-104 525.903,-104 504.121,-104"/>
-<polygon fill="none" stroke="black" points="504.055,-100.5 494.055,-104 504.055,-107.5 504.055,-100.5"/>
-</g>
 <!-- \\Slothsoft\\Blob\\BlobUrl -->
-<g id="node2" class="node"><title>\\Slothsoft\\Blob\\BlobUrl</title>
-<polygon fill="none" stroke="black" points="687.456,-68 623.456,-68 623.456,-32 687.456,-32 687.456,-68"/>
-<text text-anchor="middle" x="655.456" y="-47.2" font-family="Courier,monospace" font-size="11.00">BlobUrl</text>
+<g id="node1" class="node"><title>\\Slothsoft\\Blob\\BlobUrl</title>
+<polygon fill="none" stroke="black" points="687.456,-122 623.456,-122 623.456,-86 687.456,-86 687.456,-122"/>
+<text text-anchor="middle" x="655.456" y="-101.2" font-family="Courier,monospace" font-size="11.00">BlobUrl</text>
 </g>
 <!-- \\w3c\\FileAPI\\URL -->
-<g id="node4" class="node"><title>\\w3c\\FileAPI\\URL</title>
-<ellipse fill="none" stroke="black" cx="246.978" cy="-50" rx="79.0865" ry="18"/>
-<text text-anchor="middle" x="246.978" y="-46.3" font-family="Times New Roman,serif" font-size="14.00" fill="gray">\w3c\FileAPI\URL</text>
+<g id="node3" class="node"><title>\\w3c\\FileAPI\\URL</title>
+<ellipse fill="none" stroke="black" cx="246.978" cy="-104" rx="79.0865" ry="18"/>
+<text text-anchor="middle" x="246.978" y="-100.3" font-family="Times New Roman,serif" font-size="14.00" fill="gray">\w3c\FileAPI\URL</text>
 </g>
 <!-- \\Slothsoft\\Blob\\BlobUrl&#45;&gt;\\w3c\\FileAPI\\URL -->
-<g id="edge2" class="edge"><title>\\Slothsoft\\Blob\\BlobUrl&#45;&gt;\\w3c\\FileAPI\\URL</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M623.235,-50C562.643,-50 427.121,-50 336.625,-50"/>
-<polygon fill="none" stroke="black" points="336.369,-46.5001 326.369,-50 336.369,-53.5001 336.369,-46.5001"/>
+<g id="edge1" class="edge"><title>\\Slothsoft\\Blob\\BlobUrl&#45;&gt;\\w3c\\FileAPI\\URL</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M623.235,-104C562.643,-104 427.121,-104 336.625,-104"/>
+<polygon fill="none" stroke="black" points="336.369,-100.5 326.369,-104 336.369,-107.5 336.369,-100.5"/>
+</g>
+<!-- \\Slothsoft\\Blob\\BlobStreamWrapperFactory -->
+<g id="node2" class="node"><title>\\Slothsoft\\Blob\\BlobStreamWrapperFactory</title>
+<polygon fill="none" stroke="black" points="744.956,-68 565.956,-68 565.956,-32 744.956,-32 744.956,-68"/>
+<text text-anchor="middle" x="655.456" y="-47.2" font-family="Courier,monospace" font-size="11.00">BlobStreamWrapperFactory</text>
+</g>
+<!-- \\Slothsoft\\Core\\StreamWrapper\\StreamWrapperFactoryInterface -->
+<g id="node4" class="node"><title>\\Slothsoft\\Core\\StreamWrapper\\StreamWrapperFactoryInterface</title>
+<ellipse fill="none" stroke="black" cx="246.978" cy="-50" rx="246.956" ry="18"/>
+<text text-anchor="middle" x="246.978" y="-46.3" font-family="Times New Roman,serif" font-size="14.00" fill="gray">\Slothsoft\Core\StreamWrapper\StreamWrapperFactoryInterface</text>
+</g>
+<!-- \\Slothsoft\\Blob\\BlobStreamWrapperFactory&#45;&gt;\\Slothsoft\\Core\\StreamWrapper\\StreamWrapperFactoryInterface -->
+<g id="edge2" class="edge"><title>\\Slothsoft\\Blob\\BlobStreamWrapperFactory&#45;&gt;\\Slothsoft\\Core\\StreamWrapper\\StreamWrapperFactoryInterface</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M565.755,-50C546.815,-50 525.903,-50 504.121,-50"/>
+<polygon fill="none" stroke="black" points="504.055,-46.5001 494.055,-50 504.055,-53.5001 504.055,-46.5001"/>
 </g>
 </g>
 </svg>
