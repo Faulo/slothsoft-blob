@@ -10,7 +10,9 @@ use XSLTProcessor;
 
 class StreamWrapperTest extends TestCase
 {
-    public function testReadStream() {
+
+    public function testReadStream()
+    {
         $content = 'hello world';
         
         $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
@@ -27,8 +29,9 @@ class StreamWrapperTest extends TestCase
         $this->assertEquals($content, file_get_contents($url));
         $this->assertEquals($content, file_get_contents($url));
     }
-    
-    public function testWriteStream() {
+
+    public function testWriteStream()
+    {
         $content = 'hello world';
         
         $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
@@ -46,8 +49,9 @@ class StreamWrapperTest extends TestCase
         $this->assertEquals($content, file_get_contents($url));
         $this->assertEquals($content, file_get_contents($url));
     }
-    
-    public function testAppendStream() {
+
+    public function testAppendStream()
+    {
         $content = 'hello world';
         
         $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
@@ -58,17 +62,17 @@ class StreamWrapperTest extends TestCase
         
         file_put_contents($url, ' world', FILE_APPEND);
         
-        
         fseek($resource, 0);
-        $this->assertEquals($content, fread($resource, strlen($content)));        
+        $this->assertEquals($content, fread($resource, strlen($content)));
         fseek($resource, 0);
         $this->assertEquals($content, fread($resource, strlen($content)));
         
         $this->assertEquals($content, file_get_contents($url));
         $this->assertEquals($content, file_get_contents($url));
     }
-    
-    public function testCloseStream() {
+
+    public function testCloseStream()
+    {
         $content = 'hello world';
         
         $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
@@ -90,8 +94,9 @@ class StreamWrapperTest extends TestCase
         $this->expectException(Warning::class);
         file_get_contents($url);
     }
-    
-    public function testLoadDocument() {
+
+    public function testLoadDocument()
+    {
         $content = '<xml/>';
         
         $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
@@ -103,8 +108,9 @@ class StreamWrapperTest extends TestCase
         
         $this->assertEquals('xml', $doc->documentElement->tagName);
     }
-    
-    public function testSaveDocument() {
+
+    public function testSaveDocument()
+    {
         $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
         $url = BlobUrl::createObjectURL($resource);
         
@@ -115,8 +121,9 @@ class StreamWrapperTest extends TestCase
         
         $this->assertEquals($doc->saveXML(), file_get_contents($url));
     }
-    
-    public function testTransformDocument() {
+
+    public function testTransformDocument()
+    {
         $dataXml = <<<EOT
 <xml>
     hello world

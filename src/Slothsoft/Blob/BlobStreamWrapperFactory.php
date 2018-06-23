@@ -19,6 +19,7 @@ class BlobStreamWrapperFactory implements StreamWrapperFactoryInterface
     }
 
     /**
+     *
      * @return StreamWrapperInterface|null
      */
     public function createStreamWrapper(string $url, string $mode, int $options)

@@ -7,23 +7,27 @@ use Slothsoft\Core\StreamWrapper\StreamWrapperInterface;
 
 class BlobUrlTest extends TestCase
 {
-    public function testCreateObjectUrl() {
+
+    public function testCreateObjectUrl()
+    {
         $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
         
         $url = BlobUrl::createObjectURL($resource);
         
         $this->assertRegExp('~^blob://\d+$~', $url);
     }
-    
-    public function testResolveObjectUrl() {
+
+    public function testResolveObjectUrl()
+    {
         $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
         
         $url = BlobUrl::createObjectURL($resource);
         
         $this->assertEquals($resource, BlobUrl::resolveObjectURL($url));
     }
-    
-    public function testRevokeObjectUrl() {
+
+    public function testRevokeObjectUrl()
+    {
         $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
         
         $url = BlobUrl::createObjectURL($resource);
@@ -32,8 +36,9 @@ class BlobUrlTest extends TestCase
         
         $this->assertEquals(null, BlobUrl::resolveObjectURL($url));
     }
-    
-    public function testCreateTemporaryObject() {
+
+    public function testCreateTemporaryObject()
+    {
         $content = 'hello world';
         
         $resource = BlobUrl::createTemporaryObject();
@@ -44,8 +49,9 @@ class BlobUrlTest extends TestCase
         fseek($resource, 0);
         $this->assertEquals($content, fread($resource, strlen($content)));
     }
-    
-    public function testCreateTemporaryUrl() {
+
+    public function testCreateTemporaryUrl()
+    {
         $content = 'hello world';
         
         $url = BlobUrl::createTemporaryURL();
