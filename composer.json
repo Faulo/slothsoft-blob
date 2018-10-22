@@ -1,7 +1,7 @@
 {
     "name": "slothsoft/blob",
     "description": "Blob implementation of https://www.w3.org/TR/FileAPI/",
-    "license": "GPL",
+    "license": "WTFPL",
     "authors": [
         {
             "name": "Daniel Schulz",
