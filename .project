@@ -3,8 +3,6 @@
 	<name>slothsoft-blob</name>
 	<comment></comment>
 	<projects>
-		<project>slothsoft-core</project>
-		<project>slothsoft-w3c</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
