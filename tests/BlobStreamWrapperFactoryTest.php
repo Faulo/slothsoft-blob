@@ -8,7 +8,7 @@ use Slothsoft\Core\StreamWrapper\StreamWrapperInterface;
 use DOMDocument;
 use XSLTProcessor;
 
-class StreamWrapperTest extends TestCase {
+class BlobStreamWrapperFactoryTest extends TestCase {
 
     public function testReadStream() {
         $content = 'hello world';
