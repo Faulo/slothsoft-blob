@@ -1,7 +1,7 @@
 {
 	"name" : "slothsoft/blob",
 	"description" : "Blob implementation of https://www.w3.org/TR/FileAPI/",
-	"license" : "WTFPL",
+	"license" : "MIT",
 	"authors" : [{
 			"name" : "Daniel Schulz",
 			"email" : "info.slothsoft@gmail.com"
@@ -9,7 +9,7 @@
 	],
 	"type" : "library",
 	"require" : {
-		"php" : "7.2 - 8.1",
+		"php" : ">=7.2",
 		"slothsoft/core" : "^1.0",
 		"slothsoft/w3c" : "^1.0"
 	},
@@ -35,7 +35,7 @@
 	},
 	"extra" : {
 		"branch-alias" : {
-			"dev-develop" : "1.0.x-dev"
+			"dev-develop" : "1.1.x-dev"
 		}
 	},
 	"homepage" : "http://farah.slothsoft.net/modules/blob"
