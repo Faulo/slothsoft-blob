@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d205db27e81ae03813f9227cdd1c9b63",
+    "content-hash": "9b93300310c1910432fbbee1ca54312a",
     "packages": [
         {
             "name": "guzzlehttp/psr7",
@@ -265,16 +265,16 @@
         },
         {
             "name": "slothsoft/core",
-            "version": "1.11.5",
+            "version": "1.11.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Faulo/slothsoft-core.git",
-                "reference": "7c016bc9e7cd5a6ea97f252559cbcab7db81350b"
+                "reference": "9323d5a27f311b212d2ed8d1c88bfc361700464a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Faulo/slothsoft-core/zipball/7c016bc9e7cd5a6ea97f252559cbcab7db81350b",
-                "reference": "7c016bc9e7cd5a6ea97f252559cbcab7db81350b",
+                "url": "https://api.github.com/repos/Faulo/slothsoft-core/zipball/9323d5a27f311b212d2ed8d1c88bfc361700464a",
+                "reference": "9323d5a27f311b212d2ed8d1c88bfc361700464a",
                 "shasum": ""
             },
             "require": {
@@ -328,22 +328,22 @@
             ],
             "support": {
                 "issues": "https://github.com/Faulo/slothsoft-core/issues",
-                "source": "https://github.com/Faulo/slothsoft-core/tree/1.11.5"
+                "source": "https://github.com/Faulo/slothsoft-core/tree/1.11.6"
             },
-            "time": "2024-09-23T11:07:51+00:00"
+            "time": "2024-09-28T22:38:31+00:00"
         },
         {
             "name": "slothsoft/w3c",
-            "version": "1.2.3",
+            "version": "1.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Faulo/slothsoft-w3c.git",
-                "reference": "fa3b681214549f96d45c56eabd7460d30e9da752"
+                "reference": "d976610f8bcd306948c624404ec2eaaa21b9e7c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Faulo/slothsoft-w3c/zipball/fa3b681214549f96d45c56eabd7460d30e9da752",
-                "reference": "fa3b681214549f96d45c56eabd7460d30e9da752",
+                "url": "https://api.github.com/repos/Faulo/slothsoft-w3c/zipball/d976610f8bcd306948c624404ec2eaaa21b9e7c4",
+                "reference": "d976610f8bcd306948c624404ec2eaaa21b9e7c4",
                 "shasum": ""
             },
             "require": {
@@ -381,9 +381,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Faulo/slothsoft-w3c/issues",
-                "source": "https://github.com/Faulo/slothsoft-w3c/tree/1.2.3"
+                "source": "https://github.com/Faulo/slothsoft-w3c/tree/1.2.4"
             },
-            "time": "2024-09-23T11:09:19+00:00"
+            "time": "2024-09-28T22:40:36+00:00"
         },
         {
             "name": "symfony/polyfill-php80",
@@ -1016,29 +1016,29 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "3.1.3",
+            "version": "4.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "9c1da83261628cb24b6a6df371b6e312b3954768"
+                "reference": "a853a0e183b9db7eed023d7933a858fa1c8d25a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/9c1da83261628cb24b6a6df371b6e312b3954768",
-                "reference": "9c1da83261628cb24b6a6df371b6e312b3954768",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/a853a0e183b9db7eed023d7933a858fa1c8d25a3",
+                "reference": "a853a0e183b9db7eed023d7933a858fa1c8d25a3",
                 "shasum": ""
             },
             "require": {
                 "ext-tokenizer": "*",
-                "php": ">=7.1"
+                "php": "^7.3 || ^8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^7.0"
+                "phpunit/phpunit": "^9.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.1-dev"
+                    "dev-master": "4.0-dev"
                 }
             },
             "autoload": {
@@ -1063,7 +1063,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-token-stream/issues",
-                "source": "https://github.com/sebastianbergmann/php-token-stream/tree/3.1.3"
+                "source": "https://github.com/sebastianbergmann/php-token-stream/tree/master"
             },
             "funding": [
                 {
@@ -1072,7 +1072,7 @@
                 }
             ],
             "abandoned": true,
-            "time": "2021-07-26T12:15:06+00:00"
+            "time": "2020-08-04T08:28:15+00:00"
         },
         {
             "name": "phpunit/phpunit",
@@ -1953,12 +1953,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.2"
+        "php": ">=7.4"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
