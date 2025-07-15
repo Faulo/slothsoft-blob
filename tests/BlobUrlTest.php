@@ -12,7 +12,7 @@ class BlobUrlTest extends TestCase {
 
         $url = BlobUrl::createObjectURL($resource);
 
-        $this->assertRegExp('~^blob://\d+$~', $url);
+        $this->assertMatchesRegularExpression('~^blob://\d+$~', $url);
     }
 
     public function testResolveObjectUrl() {
