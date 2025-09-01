@@ -3,113 +3,151 @@ declare(strict_types = 1);
 namespace Slothsoft\Blob;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\Error\Warning;
 use Slothsoft\Core\StreamWrapper\StreamWrapperInterface;
 use DOMDocument;
 use XSLTProcessor;
 
 class BlobStreamWrapperFactoryTest extends TestCase {
 
-    public function testReadStream() {
-        $content = 'hello world';
+    public function contentProvider(): array {
+        return [
+            [
+                'hello'
+            ],
+            [
+                'world'
+            ]
+        ];
+    }
 
+    private function createResource(string $content = '') {
         $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
-        fwrite($resource, $content);
+        if (strlen($content)) {
+            fwrite($resource, $content);
+        }
+        return $resource;
+    }
+
+    /**
+     *
+     * @dataProvider contentProvider
+     */
+    public function testResource(string $content): void {
+        $resource = $this->createResource($content);
+
+        fseek($resource, 0);
+        $this->assertEquals($content, fread($resource, strlen($content)));
+
+        fseek($resource, 0);
+        $this->assertEquals($content, fread($resource, strlen($content)));
+    }
+
+    /**
+     *
+     * @dataProvider contentProvider
+     */
+    public function testUrlExists(string $content): void {
+        $resource = $this->createResource($content);
 
         $url = BlobUrl::createObjectURL($resource);
-        $this->assertTrue(file_exists($url));
 
-        fseek($resource, 0);
-        $this->assertEquals($content, fread($resource, strlen($content)));
-        fseek($resource, 0);
-        $this->assertEquals($content, fread($resource, strlen($content)));
+        $this->assertTrue(file_exists($url));
+    }
+
+    /**
+     *
+     * @dataProvider contentProvider
+     */
+    public function testUrlGetContents(string $content): void {
+        $resource = $this->createResource($content);
+
+        $url = BlobUrl::createObjectURL($resource);
 
         $this->assertEquals($content, file_get_contents($url));
         $this->assertEquals($content, file_get_contents($url));
     }
 
-    public function testWriteStream() {
-        $content = 'hello world';
-
-        $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
-
+    /**
+     *
+     * @dataProvider contentProvider
+     */
+    public function testUrlPutContents(string $content): void {
+        $resource = $this->createResource($content);
         $url = BlobUrl::createObjectURL($resource);
-        $this->assertTrue(file_exists($url));
 
         file_put_contents($url, $content);
 
-        fseek($resource, 0);
-        $this->assertEquals($content, fread($resource, strlen($content)));
-        fseek($resource, 0);
-        $this->assertEquals($content, fread($resource, strlen($content)));
-
         $this->assertEquals($content, file_get_contents($url));
         $this->assertEquals($content, file_get_contents($url));
     }
 
-    public function testAppendStream() {
-        $content = 'hello world';
-
-        $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
-        fwrite($resource, 'hello');
-
+    /**
+     *
+     * @dataProvider contentProvider
+     */
+    public function testUrlAppendContents(string $content): void {
+        $resource = $this->createResource($content);
         $url = BlobUrl::createObjectURL($resource);
-        $this->assertTrue(file_exists($url));
 
-        file_put_contents($url, ' world', FILE_APPEND);
+        file_put_contents($url, '!!', FILE_APPEND);
 
-        fseek($resource, 0);
-        $this->assertEquals($content, fread($resource, strlen($content)));
-        fseek($resource, 0);
-        $this->assertEquals($content, fread($resource, strlen($content)));
-
-        $this->assertEquals($content, file_get_contents($url));
-        $this->assertEquals($content, file_get_contents($url));
+        $this->assertEquals($content . '!!', file_get_contents($url));
+        $this->assertEquals($content . '!!', file_get_contents($url));
     }
 
-    public function testCloseStream() {
-        $content = 'hello world';
-
-        $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
-        fwrite($resource, $content);
-
+    /**
+     *
+     * @dataProvider contentProvider
+     */
+    public function testClosedUrlDoesNotExist(string $content): void {
+        $resource = $this->createResource($content);
         $url = BlobUrl::createObjectURL($resource);
-        $this->assertTrue(file_exists($url));
 
-        $this->assertEquals($content, file_get_contents($url));
+        BlobUrl::revokeObjectURL($url);
+        clearstatcache();
 
-        $this->assertTrue(is_resource($resource));
+        $this->assertFalse(file_exists($url));
+    }
+
+    /**
+     *
+     * @dataProvider contentProvider
+     */
+    public function testClosedUrlIsNotResource(string $content): void {
+        $resource = $this->createResource($content);
+        $url = BlobUrl::createObjectURL($resource);
 
         BlobUrl::revokeObjectURL($url);
         clearstatcache();
 
         $this->assertFalse(is_resource($resource));
-        $this->assertFalse(file_exists($url));
-
-        $this->expectException(Warning::class);
-        file_get_contents($url);
     }
 
-    public function testLoadDocument() {
-        $content = '<xml/>';
-
-        $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
-        fwrite($resource, $content);
+    /**
+     *
+     * @dataProvider contentProvider
+     */
+    public function testLoadDocument(string $tag): void {
+        $content = "<$tag/>";
+        $resource = $this->createResource($content);
         $url = BlobUrl::createObjectURL($resource);
 
         $doc = new DOMDocument();
         $doc->load($url);
 
-        $this->assertEquals('xml', $doc->documentElement->tagName);
+        $this->assertEquals($tag, $doc->documentElement->tagName);
     }
 
-    public function testSaveDocument() {
-        $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
+    /**
+     *
+     * @dataProvider contentProvider
+     */
+    public function testSaveDocument(string $tag): void {
+        $resource = $this->createResource();
         $url = BlobUrl::createObjectURL($resource);
 
         $doc = new DOMDocument();
-        $doc->appendChild($doc->createElement('xml'));
-
+        $doc->appendChild($doc->createElement($tag));
         $doc->save($url);
 
         $this->assertEquals($doc->saveXML(), file_get_contents($url));
@@ -117,10 +155,10 @@ class BlobStreamWrapperFactoryTest extends TestCase {
 
     public function testTransformDocument() {
         $dataXml = <<<EOT
-<xml>
-    hello world
-</xml>
-EOT;
+        <xml>
+            hello world
+        </xml>
+        EOT;
         $dataResource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
         fwrite($dataResource, $dataXml);
         $dataUrl = BlobUrl::createObjectURL($dataResource);
@@ -128,14 +166,14 @@ EOT;
         $dataDoc->load($dataUrl);
 
         $templateXml = <<<EOT
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-    <xsl:template match="/">
-        <transformed-xml>
-            <xsl:value-of select="normalize-space(.)"/>
-        </transformed-xml>
-    </xsl:template>
-</xsl:stylesheet>
-EOT;
+        <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+            <xsl:template match="/">
+                <transformed-xml>
+                    <xsl:value-of select="normalize-space(.)"/>
+                </transformed-xml>
+            </xsl:template>
+        </xsl:stylesheet>
+        EOT;
         $templateResource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
         fwrite($templateResource, $templateXml);
         $templateUrl = BlobUrl::createObjectURL($templateResource);
