@@ -1,7 +1,6 @@
 <?php
 declare(strict_types = 1);
+namespace Slothsoft\Blob;
 
 use Slothsoft\Core\StreamWrapper\StreamWrapperRegistrar;
-use Slothsoft\Blob\BlobStreamWrapperFactory;
-
 StreamWrapperRegistrar::registerStreamWrapper('blob', new BlobStreamWrapperFactory());
