@@ -7,7 +7,7 @@ use Slothsoft\Core\StreamWrapper\StreamWrapperInterface;
 use Slothsoft\Core\StreamWrapper\ResourceStreamWrapper;
 
 class BlobStreamWrapperFactory implements StreamWrapperFactoryInterface {
-
+    
     public function statUrl(string $url, int $flags) {
         if ($stream = self::createStreamWrapper($url, StreamWrapperInterface::MODE_OPEN_READONLY, 0)) {
             return $stream->stream_stat();
@@ -15,7 +15,7 @@ class BlobStreamWrapperFactory implements StreamWrapperFactoryInterface {
             return false;
         }
     }
-
+    
     /**
      *
      * @return StreamWrapperInterface|null
