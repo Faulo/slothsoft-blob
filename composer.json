@@ -11,8 +11,7 @@
 	"require" : {
 		"php" : ">=7.4",
 		"slothsoft/core" : "^1.13.1",
-		"slothsoft/w3c" : "^1.0",
-		"slothsoft/farah": "^1.21.14"
+		"slothsoft/w3c" : "^1.0"
 	},
 	"require-dev" : {
 		"phpunit/phpunit" : "~9.6.23"

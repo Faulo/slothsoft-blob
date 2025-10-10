@@ -3,19 +3,24 @@ def runTests(def versions) {
 		def image = "faulo/farah:${version}"
 
 		stage("PHP: ${version}") {
-			dir('.reports') {
-				deleteDir()
-			}
+			callShell "docker pull ${image}"
 
-			withDockerContainer(image: image, toolName: 'Default', args: '--pull always') {
-				catchError(stageResult: 'UNSTABLE', buildResult: 'UNSTABLE', catchInterruptions: false) {
-					callShell 'composer update --prefer-lowest'
-					callShell "composer exec phpunit -- --log-junit .reports/${version}.xml"
+			docker.image(image).inside {
+				callShell 'composer update --prefer-lowest'
+
+				dir('.reports') {
+					deleteDir()
 				}
-			}
 
-			dir('.reports') {
-				junit "*"
+				def report = ".reports/${version}.xml"
+
+				catchError(stageResult: 'UNSTABLE', buildResult: 'UNSTABLE', catchInterruptions: false) {
+					callShell "composer exec phpunit -- --log-junit ${report}"
+				}
+
+				if (fileExists(report)) {
+					junit report
+				}
 			}
 		}
 	}
