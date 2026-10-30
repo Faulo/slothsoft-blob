@@ -94,21 +94,23 @@ Keep cross-platform and supported-PHP integration coverage in `.jenkins/Jenkinsf
 
 When the user has authorized a release, complete every phase in order.
 
-#### Phase 1: Build and validate the candidate
+#### Phase 1: Local work
 
 1. Implement the change, add or update its tests, and document user-visible behavior under `Unreleased` in `CHANGELOG.md`.
-2. Run focused tests while developing, then run the complete local test suite.
-3. Commit and push the candidate changes.
-4. Watch the complete GitHub CI run and the matching job under `https://ci.slothsoft.net/job/php-packages/` for the pushed commit.
-5. If either validation fails, fix the issue and repeat from step 2 with a new commit and push.
+2. Run focused tests while developing, then run the complete local test suite and required linting checks.
+3. Local work may be committed as needed. Keep its changelog entries under `Unreleased` until preparing the release candidate.
 
-#### Phase 2: Prepare and tag the release
+#### Phase 2: Release candidate and CI
 
 1. Select the next version according to semantic versioning. If a new development line begins, keep Composer's branch alias aligned with it.
-2. Move the relevant `CHANGELOG.md` entries from `Unreleased` into a heading for the selected version and release date.
-3. Commit and push the release preparation.
-4. Validate that exact commit in both GitHub CI and the matching Jenkins job. If it fails, fix it and return to Phase 1, step 2.
-5. Tag the exact commit, using the repository's existing version-tag format, and push the tag. Never reuse or move a published tag.
-6. If the feature was based on a ticket, update the ticket's body to reflect the shipped design and mark it complete.
+2. Finalize all release metadata, including moving the relevant `CHANGELOG.md` entries from `Unreleased` into a heading for the selected version and release date. Update changelog comparison links.
+3. Run any local checks required by the release preparation changes, then commit and push the release candidate. The pushed commit must already be ready to tag as the selected version.
+4. Watch the complete GitHub CI run and the matching job under `https://ci.slothsoft.net/job/php-packages/` for that exact commit, and read the complete relevant logs.
+5. If either validation fails, restart at phase 1, step 1. Keep the selected version unless the new changes demand a higher-order semantic version.
+
+#### Phase 3: Tag and close out
+
+1. After both CI systems pass, tag the exact validated commit using the repository's existing version-tag format, and push the tag. Never reuse or move a published tag.
+2. Update any associated issues and pull requests to reflect the shipped design and release version, and mark completed work as complete.
 
 If the expected behavior or its test contract changes at any point, restart at Phase 1, step 1.
