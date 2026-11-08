@@ -1,5 +1,6 @@
 <?php
 declare(strict_types = 1);
+
 namespace Slothsoft\Blob;
 
 use PHPUnit\Framework\TestCase;
@@ -7,24 +8,30 @@ use Slothsoft\Core\StreamWrapper\StreamWrapperInterface;
 
 class BlobUrlTest extends TestCase {
     
-    public function testCreateObjectUrl() {
+    /** @runInSeparateProcess */
+    public function testCreateObjectUrl(): void {
         $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
+        $this->assertIsResource($resource);
         
         $url = BlobUrl::createObjectURL($resource);
         
         $this->assertMatchesRegularExpression('~^blob://\d+$~', $url);
     }
     
-    public function testResolveObjectUrl() {
+    /** @runInSeparateProcess */
+    public function testResolveObjectUrl(): void {
         $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
+        $this->assertIsResource($resource);
         
         $url = BlobUrl::createObjectURL($resource);
         
         $this->assertEquals($resource, BlobUrl::resolveObjectURL($url));
     }
     
-    public function testRevokeObjectUrl() {
+    /** @runInSeparateProcess */
+    public function testRevokeObjectUrl(): void {
         $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
+        $this->assertIsResource($resource);
         
         $url = BlobUrl::createObjectURL($resource);
         
@@ -33,7 +40,7 @@ class BlobUrlTest extends TestCase {
         $this->assertEquals(null, BlobUrl::resolveObjectURL($url));
     }
     
-    public function testCreateTemporaryObject() {
+    public function testCreateTemporaryObject(): void {
         $content = 'hello world';
         
         $resource = BlobUrl::createTemporaryObject();
@@ -45,7 +52,8 @@ class BlobUrlTest extends TestCase {
         $this->assertEquals($content, fread($resource, strlen($content)));
     }
     
-    public function testCreateTemporaryUrl() {
+    /** @runInSeparateProcess */
+    public function testCreateTemporaryUrl(): void {
         $content = 'hello world';
         
         $url = BlobUrl::createTemporaryURL();

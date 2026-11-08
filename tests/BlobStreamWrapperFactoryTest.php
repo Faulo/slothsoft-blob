@@ -1,5 +1,6 @@
 <?php
 declare(strict_types = 1);
+
 namespace Slothsoft\Blob;
 
 use PHPUnit\Framework\TestCase;
@@ -9,6 +10,7 @@ use XSLTProcessor;
 
 class BlobStreamWrapperFactoryTest extends TestCase {
     
+    /** @return list<array{non-empty-string}> */
     public function contentProvider(): array {
         return [
             [
@@ -20,8 +22,10 @@ class BlobStreamWrapperFactoryTest extends TestCase {
         ];
     }
     
+    /** @return resource */
     private function createResource(string $content = '') {
         $resource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
+        $this->assertIsResource($resource);
         if (strlen($content)) {
             fwrite($resource, $content);
         }
@@ -34,16 +38,19 @@ class BlobStreamWrapperFactoryTest extends TestCase {
      */
     public function testResource(string $content): void {
         $resource = $this->createResource($content);
+        $length = strlen($content);
+        $this->assertTrue($length > 0);
         
         fseek($resource, 0);
-        $this->assertEquals($content, fread($resource, strlen($content)));
+        $this->assertEquals($content, fread($resource, $length));
         
         fseek($resource, 0);
-        $this->assertEquals($content, fread($resource, strlen($content)));
+        $this->assertEquals($content, fread($resource, $length));
     }
     
     /**
      *
+     * @runInSeparateProcess
      * @dataProvider contentProvider
      */
     public function testUrlExists(string $content): void {
@@ -56,6 +63,7 @@ class BlobStreamWrapperFactoryTest extends TestCase {
     
     /**
      *
+     * @runInSeparateProcess
      * @dataProvider contentProvider
      */
     public function testUrlGetContents(string $content): void {
@@ -69,6 +77,7 @@ class BlobStreamWrapperFactoryTest extends TestCase {
     
     /**
      *
+     * @runInSeparateProcess
      * @dataProvider contentProvider
      */
     public function testUrlPutContents(string $content): void {
@@ -83,6 +92,7 @@ class BlobStreamWrapperFactoryTest extends TestCase {
     
     /**
      *
+     * @runInSeparateProcess
      * @dataProvider contentProvider
      */
     public function testUrlAppendContents(string $content): void {
@@ -97,6 +107,7 @@ class BlobStreamWrapperFactoryTest extends TestCase {
     
     /**
      *
+     * @runInSeparateProcess
      * @dataProvider contentProvider
      */
     public function testClosedUrlDoesNotExist(string $content): void {
@@ -111,6 +122,7 @@ class BlobStreamWrapperFactoryTest extends TestCase {
     
     /**
      *
+     * @runInSeparateProcess
      * @dataProvider contentProvider
      */
     public function testClosedUrlIsNotResource(string $content): void {
@@ -125,6 +137,7 @@ class BlobStreamWrapperFactoryTest extends TestCase {
     
     /**
      *
+     * @runInSeparateProcess
      * @dataProvider contentProvider
      */
     public function testLoadDocument(string $tag): void {
@@ -135,11 +148,13 @@ class BlobStreamWrapperFactoryTest extends TestCase {
         $doc = new DOMDocument();
         $doc->load($url);
         
+        $this->assertNotNull($doc->documentElement);
         $this->assertEquals($tag, $doc->documentElement->tagName);
     }
     
     /**
      *
+     * @runInSeparateProcess
      * @dataProvider contentProvider
      */
     public function testSaveDocument(string $tag): void {
@@ -153,14 +168,14 @@ class BlobStreamWrapperFactoryTest extends TestCase {
         $this->assertEquals($doc->saveXML(), file_get_contents($url));
     }
     
-    public function testTransformDocument() {
+    /** @runInSeparateProcess */
+    public function testTransformDocument(): void {
         $dataXml = <<<EOT
         <xml>
             hello world
         </xml>
         EOT;
-        $dataResource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
-        fwrite($dataResource, $dataXml);
+        $dataResource = $this->createResource($dataXml);
         $dataUrl = BlobUrl::createObjectURL($dataResource);
         $dataDoc = new DOMDocument();
         $dataDoc->load($dataUrl);
@@ -174,13 +189,12 @@ class BlobStreamWrapperFactoryTest extends TestCase {
             </xsl:template>
         </xsl:stylesheet>
         EOT;
-        $templateResource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
-        fwrite($templateResource, $templateXml);
+        $templateResource = $this->createResource($templateXml);
         $templateUrl = BlobUrl::createObjectURL($templateResource);
         $templateDoc = new DOMDocument();
         $templateDoc->load($templateUrl);
         
-        $resultResource = fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
+        $resultResource = $this->createResource();
         $resultUrl = BlobUrl::createObjectURL($resultResource);
         
         $xslt = new XSLTProcessor();
@@ -190,6 +204,7 @@ class BlobStreamWrapperFactoryTest extends TestCase {
         $resultDoc = new DOMDocument();
         $resultDoc->load($resultUrl);
         
+        $this->assertNotNull($resultDoc->documentElement);
         $this->assertEquals('transformed-xml', $resultDoc->documentElement->tagName);
         $this->assertEquals('hello world', $resultDoc->documentElement->textContent);
     }

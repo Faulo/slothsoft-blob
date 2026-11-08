@@ -1,9 +1,11 @@
 <?php
 declare(strict_types = 1);
+
 namespace Slothsoft\Blob;
 
 use w3c\FileAPI\URL;
 use Slothsoft\Core\StreamWrapper\StreamWrapperInterface;
+use InvalidArgumentException;
 
 class BlobUrl implements URL {
     
@@ -11,15 +13,16 @@ class BlobUrl implements URL {
     
     const URL_ORIGIN = '/';
     
-    private static $blobCount = 0;
+    private static int $blobCount = 0;
     
-    private static $blobStore = [];
+    /** @var array<string, resource> */
+    private static array $blobStore = [];
     
     public static function createObjectURL($blob): string {
         if (! is_resource($blob)) {
-            throw new \InvalidArgumentException("resource expected, but got " . gettype($blob));
+            throw new InvalidArgumentException("resource expected, but got " . gettype($blob));
         }
-        self::$blobCount ++;
+        self::$blobCount++;
         $url = self::buildObjectUrl(self::URL_SCHEME, self::URL_ORIGIN, (string) self::$blobCount);
         self::$blobStore[$url] = $blob;
         return $url;
@@ -32,16 +35,22 @@ class BlobUrl implements URL {
         }
     }
     
+    /** @return resource|null */
     public static function resolveObjectURL(string $url) {
         return self::$blobStore[$url] ?? null;
     }
     
+    /** @return resource|false */
     public static function createTemporaryObject() {
         return fopen('php://temp', StreamWrapperInterface::MODE_CREATE_READWRITE);
     }
     
     public static function createTemporaryURL(): string {
-        return self::createObjectURL(self::createTemporaryObject());
+        $resource = self::createTemporaryObject();
+        if ($resource === false) {
+            throw new InvalidArgumentException('resource expected, but got boolean');
+        }
+        return self::createObjectURL($resource);
     }
     
     /**
